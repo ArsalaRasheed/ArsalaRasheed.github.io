@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AL-KHAN PAINTS — sitemap
+  ===========================================================================
+  One page, so one <url>. The anchor links (#products, #brands, #contact …)
+  are deliberately NOT listed: they are the same document, and listing them
+  would split the page's signals across URLs that all return identical
+  content. If a second page is ever added, append another <url> block.
+
+  When the domain changes, this file, the Sitemap line in robots.txt and
+  SITE_CONFIG.canonicalUrl in js/config.js must all be updated together —
+  they have to name the same origin.
+
+  <lastmod> is the date this page was last published, not an invented one.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://info.alkhanpaints.com/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

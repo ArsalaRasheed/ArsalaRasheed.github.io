@@ -149,6 +149,15 @@
     }
     if (SITE_CONFIG.mapsUrl) ld.hasMap = SITE_CONFIG.mapsUrl;
 
+    // Site URL and share image — added only once the domain is live. A
+    // fabricated URL is worse for structured data than an absent one, so both
+    // come straight from the canonicalUrl set in config.js.
+    if (SITE_CONFIG.canonicalUrl) {
+      var base = SITE_CONFIG.canonicalUrl.replace(/\/+$/, "");
+      ld.url = base + "/";
+      ld.image = base + "/assets/img/og-image.jpg";
+    }
+
     var ldEl = document.createElement("script");
     ldEl.type = "application/ld+json";
     ldEl.textContent = JSON.stringify(ld);

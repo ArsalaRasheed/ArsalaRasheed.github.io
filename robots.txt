@@ -1,21 +1,26 @@
 # AL-KHAN PAINTS — robots.txt
-# ============================================================================
-# NOTE FOR GITHUB PAGES, READ THIS BEFORE PUSHING:
+# ===========================================================================
+# Crawlers read this ONLY from the host root, which is where it sits.
 #
-# Google only ever fetches /robots.txt from the HOST ROOT. If this site is in a
-# *project* repository — i.e. https://username.github.io/this-repo/ — a
-# robots.txt in this folder is never fetched, and neither is sitemap.xml.
+# Two things worth knowing before touching it:
 #
-# To have these files actually count, publish from a repository named exactly
-# `username.github.io` (a "user site" repository), which is served at the root.
-# On a project repository, delete this file — it does nothing, and an
-# unreachable one is worse than none at all.
+#   1. This publishes from a repository named `username.github.io` — a "user
+#      site" repository, served at the host root. That is the only reason the
+#      file is fetched at all. A project repository
+#      (username.github.io/some-repo/) would happily serve a robots.txt and
+#      nothing would ever request it.
+#
+#   2. The domain below is the custom domain GitHub Pages serves from. If it
+#      ever changes, update THREE things together, because all of them must
+#      name the same origin:
+#          • the Sitemap line here
+#          • <loc> in sitemap.xml
+#          • SITE_CONFIG.canonicalUrl in js/config.js
 #
 # `Allow: /` is the default, written out because the page exists to be indexed.
-# ============================================================================
+# ===========================================================================
 User-Agent: *
 Allow: /
 Crawl-Delay: 1
 
-# Add once the production domain is live and known, replacing YOUR-DOMAIN:
-#   Sitemap: https://YOUR-DOMAIN/sitemap.xml
+Sitemap: https://info.alkhanpaints.com/sitemap.xml

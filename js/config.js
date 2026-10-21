@@ -61,11 +61,14 @@ const SITE_CONFIG = {
   },
 
   /**
-   * Optional: canonical production URL, e.g. "https://www.example.com/".
-   * Leave null until the live domain is known. No canonical tag is emitted
-   * when null, so the page never advertises a URL that does not exist.
+   * Canonical production URL. Emitted as <link rel="canonical">, and also used
+   * for og:url and the JSON-LD `url`, so all three always agree.
+   *
+   * The custom domain GitHub Pages serves from. Changing this means changing
+   * four places in lockstep — the tag here, og:url / og:image / twitter:image
+   * in index.html, sitemap.xml, and the Sitemap line in robots.txt.
    */
-  canonicalUrl: null
+  canonicalUrl: "https://info.alkhanpaints.com/"
 };
 
 /* --------------------------------------------------------------------------
