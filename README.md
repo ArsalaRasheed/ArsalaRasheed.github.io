@@ -16,12 +16,12 @@ every conversion path routed to WhatsApp.
 | 4 | Store photo | `assets/img/store-front.jpg` | ✅ in place — swap this file to change it |
 | 5 | Category product photography | `assets/img/cat/` | ✅ 11 real images cropped from your own Shopify catalogue |
 | 6 | **Google Maps listing** | `js/config.js` → `SITE_CONFIG.mapsUrl` | ✅ linked — button + tappable address card |
-| 7 | Production URL (canonical) | `js/config.js` → `SITE_CONFIG.canonicalUrl` | `null` — tag omitted, which is honest, but set it once the domain exists |
-| 8 | Real OG share photo | `assets/img/og-image.jpg` | ✅ storefront photo with navy scrim — **make the path absolute** when the domain is live |
+| 7 | Production URL (canonical) | `js/config.js` → `SITE_CONFIG.canonicalUrl` | ✅ `https://info.alkhanpaints.com/` — drives `<link rel=canonical>`, `og:url` and the JSON-LD `url` |
+| 8 | Real OG share photo | `assets/img/og-image.jpg` | ✅ storefront photo with navy scrim, referenced as an **absolute** URL |
 | 9 | About identity | `index.html` → `.about__plate` | ✅ proprietor name plate (portrait removed at request) |
-| 10 | Repository name | GitHub → repo settings | ⬜ must be `username.github.io`, otherwise `robots.txt` is never fetched (see Deployment) |
-| 11 | `sitemap.xml` | repo root | ⬜ not created — needs absolute URLs. Template in the **SEO** section |
-| 12 | Security check on the live URL | browser DevTools → Console / Network | ⬜ Console clean, and **zero** requests to any domain but your own (`node _csp.js` proves it locally) |
+| 10 | Repository name | GitHub | ✅ `ArsalaRasheed.github.io` — a user-site repo, which is why `robots.txt` is fetched at all |
+| 11 | `sitemap.xml` | repo root | ✅ live and declared in `robots.txt` |
+| 12 | Live production check | `node _live.js` | ✅ 0 third-party requests, CSP enforced, 24 images 0 broken, 20/20 CTAs on the right number |
 
 > **Store photo:** `assets/img/store-front.jpg` now holds the storefront photo (1600×1200,
 > the shot with the signboard). The "Come See the Range Yourself" section picks it up
@@ -151,6 +151,7 @@ Chrome installed; all are **dev-only** and are never uploaded.
 | `node _contrast.js 390 844` | WCAG AA contrast at a **phone** viewport |
 | `node _shot.js 1440 900 .hero,#products` | Screenshots any viewport + list of selectors into `%TEMP%\opencode\alpaints\`, for eyeballing a change |
 | `node _csp.js` | The shipped Content-Security-Policy is enforced **and harmless** — both self-hosted fonts resolve, the JSON-LD block survives, the eight swatch chips still paint, Chrome reports no CSP violations, and zero requests leave the origin |
+| `node _live.js` | The same assertions re-run against the **deployed** site. The only script that can see production-only facts: the canonical link (injected by JS, so absent from the raw HTML), the JSON-LD `url`/`image`, and whether what the host actually publishes still matches what was committed |
 
 > `_csp.js` is the only script that runs with CSP **on**. The others call
 > `Security.setBypassCSP` because they inject a `<style>` tag, which the policy
@@ -198,7 +199,9 @@ alkhan_landingpage/
 │       ├── og-image.jpg    # 1200×630 social share card (storefront photo)
 │       ├── cat/            # 11 category card photos (560×315) — built by _mkcats.ps1
 │       └── brands/         # ← drop official brand logos here
-├── robots.txt              # Crawler policy. Host-root only — read the note inside.
+├── robots.txt              # Crawler policy + the Sitemap declaration
+├── sitemap.xml             # One <url> — must name the same origin as canonicalUrl
+├── CNAME                   # The custom domain Pages serves from (written by GitHub)
 ├── _headers                # Response headers for Netlify / Cloudflare Pages
 ├── _config.yml             # Jekyll excludes — keeps dev files off the published site
 ├── .gitignore              # Keeps _original/ and node_modules/ out of the repo
@@ -213,6 +216,7 @@ alkhan_landingpage/
 ├── _contrast.js            # Dev-only: pixel-based WCAG AA contrast audit
 ├── _shot.js                # Dev-only: CDP screenshots for eyeballing a change
 ├── _csp.js                 # Dev-only: proves the CSP is enforced and harmless
+├── _live.js                # Dev-only: production smoke test against the live URL
 ├── _genbg.js               # Dev-only: regenerates the hero backdrop (`node _genbg.js`)
 ├── _getcats.js             # Dev-only: pulls the category artwork from alkhanpaints.com
 ├── _mkcats.ps1             # Dev-only: crops/resizes it into assets/img/cat/*.jpg
@@ -605,29 +609,23 @@ because it is the LCP element; every image reserves its box with `width`/`height
 nothing shifts; fonts are self-hosted, which removes a DNS lookup, a TLS handshake
 and a redirect from first paint, and works even where `fonts.gstatic.com` is slow.
 
-**Outstanding, and all of it needs the live domain:**
+**The three items that needed a live domain are done**, at
+`https://info.alkhanpaints.com/`:
 
-| Item | Where |
-|---|---|
-| `SITE_CONFIG.canonicalUrl` | `js/config.js` — currently `null`, so the tag is omitted rather than wrong |
-| Absolute `og:image` / `twitter:image` | `index.html` — relative paths work for some scrapers and not for Facebook |
-| `sitemap.xml` | Needs absolute URLs. Ready-to-use template below |
+| Item | Where | Status |
+|---|---|---|
+| `SITE_CONFIG.canonicalUrl` | `js/config.js` | ✅ one value feeding three outputs — `<link rel="canonical">`, `og:url` and the JSON-LD `url` |
+| Absolute `og:image` / `twitter:image` | `index.html` | ✅ absolute, so Facebook and WhatsApp render a preview instead of silently showing none |
+| `sitemap.xml` + `robots.txt` | repo root | ✅ one `<url>`, declared in `robots.txt`, both served at the host root |
 
-Drop this in as `sitemap.xml` once the domain exists, replacing `YOUR-DOMAIN`:
+The site is published from `ArsalaRasheed.github.io`, a *user-site* repository. That
+is the only reason `robots.txt` and `sitemap.xml` are fetched at all — a project
+repository (`username.github.io/some-repo/`) serves them, and nothing requests them.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://YOUR-DOMAIN/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-</urlset>
-```
-
-A one-page site does not strictly need a sitemap — Google will find a single URL on
-its own — but it costs nothing, and it is where any future page gets listed.
+**If the domain ever changes, three things move together** — `<loc>` in
+`sitemap.xml`, the `Sitemap:` line in `robots.txt`, and `canonicalUrl` in
+`js/config.js`. `node _live.js` is what proves all three still agree with what the
+host is actually serving.
 
 **Do not** chase keyword-stuffed titles, invented reviews, or a second page of thin
 content. The strongest ranking signal for "paint supplier in Rawalpindi" available
