@@ -1,0 +1,17 @@
+{
+  "name": "al-khan-paints-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AL-KHAN PAINTS — premium B2B bulk-order landing page (Rawalpindi). Static HTML/CSS/JS, no build step.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "landing-page",
+    "b2b",
+    "paint",
+    "wholesale"
+  ],
+  "license": "UNLICENSED"
+}

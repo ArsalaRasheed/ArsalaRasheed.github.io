@@ -1,0 +1,45 @@
+﻿BRAND LOGOS
+===========
+
+STATUS: 8 of 9 brands have real official logo artwork.
+
+    assets/img/brands/
+    ├── nippon-paints.svg     Nippon Paints   official vector SVG
+    ├── master-paints.png     Master Paints   official, tight-cropped, transparent
+    ├── kaizen-paints.png     Kaizen Paints   official full lockup, transparent
+    ├── mixtone.png           Mixtone         official wordmark
+    ├── berger-paints.png     Berger Paints   official, trimmed, keyed to white
+    ├── ici-paints.png        ICI Paints      official emblem, keyed to white
+    ├── cartec.png            Cartec          official mark, blue ground kept
+    ├── voylet.png            Voylet          official wordmark, trimmed
+    └── (crono-paints.png)    Crono Paints    STILL MISSING - see below
+
+HOW IT WORKS
+------------
+Each tile has a real <img> plus a typographic wordmark underneath. JavaScript adds
+the class "is-ok" to the <img> only if the file actually loads. If the file is
+missing, the wordmark stays and the tile still looks finished.
+
+So you can add, remove or replace files one at a time - nothing ever breaks.
+
+CRONO - THE ONE STILL MISSING
+-----------------------------
+Crono has no brand website, and every Crono image on alkhanpaints.com is a product
+or marketing photograph rather than standalone logo artwork. Rather than redraw a
+trademark, the tile shows a designed typographic wordmark.
+
+If you have the official Crono logo, drop it here as:
+
+    crono-paints.png
+
+and it takes over automatically.
+
+RULES IF YOU REPLACE ANY OF THESE
+---------------------------------
+* Keep logos TIGHT-CROPPED with no whitespace border. The tile scales by height
+  to a fixed 46px, so a logo with big empty margins renders visibly tinier than
+  every other brand next to it.
+* A pure white background is fine (the tiles are white), but pure white only -
+  an off-white like #F7F7F7 shows a faint box against the tile.
+* Never approximate or redraw a brand's logo. Use the official file or leave the
+  wordmark.

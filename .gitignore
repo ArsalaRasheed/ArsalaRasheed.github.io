@@ -1,0 +1,24 @@
+# ============================================================================
+# Development-only files. These are NOT deployed, and for two of them that is
+# not just tidiness:
+#
+#   _original/  holds material that must never be published — the unedited
+#               owner portrait, the original logo, the cover banner and the
+#               raw brand-logo files.
+#   node_modules/  there are no dependencies, so it should never appear at all;
+#               listed so a stray `npm install` cannot land it in the repo.
+#
+# The remaining dev scripts (_final.js, _contrast.js, _shot.js, _csp.js,
+# _genbg.js, _getcats.js, _mkcats.ps1, _getfonts.js) are deliberately NOT
+# ignored: they are the only record of how the assets were produced. They stay
+# out of the published site for a different reason — GitHub Pages runs Jekyll,
+# which excludes every path starting with an underscore. See `_config.yml`.
+# ============================================================================
+_original/
+node_modules/
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log

@@ -1,0 +1,27 @@
+# ============================================================================
+# Response headers for Netlify and Cloudflare Pages.
+#
+# GitHub Pages — the host this is currently deployed on — IGNORES this file; it
+# gives you no way to set response headers at all. That is why the
+# Content-Security-Policy also ships as a <meta> tag in index.html, which every
+# host honours. The two are identical apart from `frame-ancestors`, which the
+# spec ignores inside <meta> and which therefore can only be set here.
+#
+# If you move to Netlify or Cloudflare Pages, this file takes over on its own —
+# nothing to wire up. Keep the two policies in step with each other.
+# ============================================================================
+/*
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; frame-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=(), interest-cohort=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
+
+# Long cache only for fingerprinted-safe static assets. These filenames are
+# human-readable, so cap the cache rather than pinning it for a year.
+/assets/*
+  Cache-Control: public, max-age=604800

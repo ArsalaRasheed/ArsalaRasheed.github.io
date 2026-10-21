@@ -1,0 +1,16 @@
+# ============================================================================
+# Jekyll configuration — GitHub Pages runs Jekyll automatically on every push.
+# It is not being used to build anything; there is no build step. This exists
+# for one control: Jekyll excludes paths starting with `_` from the published
+# site on its own, which is why the dev scripts above never go live. These
+# three don't start with an underscore and therefore would be published, so
+# they are named explicitly.
+#
+# Deliberately NOT adding `.nojekyll`: it would switch that underscore
+# exclusion off and publish every dev script.
+# ============================================================================
+exclude:
+  - server.js
+  - package.json
+  - README.md
+  - "*.config.js"

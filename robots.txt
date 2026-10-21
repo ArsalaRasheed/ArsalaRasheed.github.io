@@ -1,0 +1,21 @@
+# AL-KHAN PAINTS — robots.txt
+# ============================================================================
+# NOTE FOR GITHUB PAGES, READ THIS BEFORE PUSHING:
+#
+# Google only ever fetches /robots.txt from the HOST ROOT. If this site is in a
+# *project* repository — i.e. https://username.github.io/this-repo/ — a
+# robots.txt in this folder is never fetched, and neither is sitemap.xml.
+#
+# To have these files actually count, publish from a repository named exactly
+# `username.github.io` (a "user site" repository), which is served at the root.
+# On a project repository, delete this file — it does nothing, and an
+# unreachable one is worse than none at all.
+#
+# `Allow: /` is the default, written out because the page exists to be indexed.
+# ============================================================================
+User-Agent: *
+Allow: /
+Crawl-Delay: 1
+
+# Add once the production domain is live and known, replacing YOUR-DOMAIN:
+#   Sitemap: https://YOUR-DOMAIN/sitemap.xml
